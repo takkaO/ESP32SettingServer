@@ -41,10 +41,10 @@ void setup()
 	}
 	Serial.println("Client mode.");
 
-	String ssid = ss.getParameter("WIFI", "SSID", ssid);
-	String pass = ss.getParameter("WIFI", "PASS", pass);
-	int p1 = ss.getParameter("TEST", "P1", p1);
-	double p2 = ss.getParameter("TEST", "P2", p2);
+	String ssid = ss.getParameter<String>("WIFI", "SSID");
+	String pass = ss.getParameter<String>("WIFI", "PASS");
+	int p1 = ss.getParameter<int>("TEST", "P1");
+	double p2 = ss.getParameter<double>("TEST", "P2");
 
 	Serial.println("[WIFI]");
 	Serial.print("\t[SSID]: ");

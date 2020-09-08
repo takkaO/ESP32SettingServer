@@ -24,7 +24,7 @@ public:
 	DynamicJsonDocument getSettingsRaw();
 
 	template <typename T>
-	T getParameter(const char* category, const char* key, T target) {
+	T getParameter(const char* category, const char* key) {
 		return _doc[category][key].as<T>();
 	};
 
