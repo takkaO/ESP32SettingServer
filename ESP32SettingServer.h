@@ -16,6 +16,7 @@ public:
 	void setSettingFilePath(String fpath);
 	void enableDebugPrint(bool enable);
 	void begin(bool reset_settings = false);
+	void serverStart();
 	void loop();
 	void loopForever();
 	bool saveSettings();

@@ -34,7 +34,9 @@ void ESP32SettingServer::begin(bool reset_settings) {
 		saveSettings();
 		loadSettings();
 	}
-	
+}
+
+void ESP32SettingServer::serverStart() {
 	_debugPrint("Prepare WiFiAP start");
 	WiFi.softAP(_esp_ssid.c_str(), _esp_pass.c_str());
 	delay(100);
@@ -43,7 +45,10 @@ void ESP32SettingServer::begin(bool reset_settings) {
 	_debugPrint("WiFiAP OK!");
 
 	_server.on("/", HTTP_GET, [this](){handle_OnRootGet();});
-	_server.on("/", HTTP_GET, [this](){handle_OnRootPost();});
+	_server.on("/", HTTP_POST, [this](){handle_OnRootPost();});
+	_server.onNotFound([this](){handle_NotFound();});
+
+	_server.begin();
 }
 
 void ESP32SettingServer::loop() {
@@ -166,7 +171,7 @@ void ESP32SettingServer::handle_OnRootGet() {
 void ESP32SettingServer::handle_OnRootPost(){
 	JsonObject root = _doc.as<JsonObject>();
 	for (auto kv : root) {
-		Serial.println(kv.key().c_str());
+		//Serial.println(kv.key().c_str());
 		for (auto elem : _doc[kv.key().c_str()].as<JsonObject>()) {
 			//Serial.print("\t");
 			//Serial.print(elem.key().c_str());
